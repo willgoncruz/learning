@@ -1,6 +1,6 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-// import App from './App';
+import React from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
 // import reportWebVitals from './reportWebVitals';
 // import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -24,9 +24,9 @@ import { createRoot } from 'react-dom/client';
  * Styled Components: Modulariação e encapsulamento do css, excelente para criação rápida e concisa de estilos
  */
 
-const container = document.getElementById('app');
+const container = document.getElementById("app");
 const root = createRoot(container!);
-root.render(<div>TESTE</div>);
+root.render(<App />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
