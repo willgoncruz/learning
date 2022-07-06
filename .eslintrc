@@ -4,14 +4,15 @@
     "jest": true,
     "es6": true
   },
+  "parser": "@typescript-eslint/parser",
   "plugins": ["import"],
-  "extends": ["plugin:prettier/recommended"],
+  "extends": [ "plugin:prettier/recommended"],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
   "rules": {
-    "no-console": "warn",
+    "no-console": "error",
     "no-eval": "error",
     "import/first": "error"
   }
