@@ -1,10 +1,13 @@
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
-import external from "rollup-plugin-peer-deps-external";
 import serve from "rollup-plugin-serve";
 import livereload from "rollup-plugin-livereload";
 import replace from "@rollup/plugin-replace";
+import postcss from "rollup-plugin-postcss";
+// import external from "rollup-plugin-auto-external";
+// import { terser } from 'rollup-plugin-terser';
+import babel from "rollup-plugin-babel";
 
 export default {
   input: "src/index.tsx",
@@ -15,43 +18,27 @@ export default {
   },
   plugins: [
     replace({
+      preventAssignment: true,
       "process.env.NODE_ENV": JSON.stringify("development"),
     }),
-    external(),
-    resolve(),
-    commonjs(),
+    resolve({
+      customResolveOptions: {
+        moduleDirectory: "node_modules",
+      },
+    }),
+    babel({
+      exclude: "node_modules/**", // only transpile our source code,
+    }),
+    commonjs({
+      transformMixedEsModules: true,
+      include: "node_modules/**",
+      exclude: "**/*.css",
+    }),
+    // external(),
+    postcss(),
     typescript({ tsconfig: "./tsconfig.json" }),
     serve(),
     livereload(),
   ],
+  // external: ["react", "react-dom", "antd"],
 };
-
-// import { terser } from 'rollup-plugin-terser';
-// import postcss from 'rollup-plugin-postcss';
-
-// const packageJson = require('./package.json');
-
-// export default {
-//     input: 'src/index.ts',
-//     output: [
-//         {
-//             file: packageJson.main,
-//             format: 'cjs',
-//             sourcemap: true,
-//             name: 'react-lib'
-//         },
-//         {
-//             file: packageJson.module,
-//             format: 'esm',
-//             sourcemap: true
-//         }
-//     ],
-//     plugins: [
-//         external(),
-//         resolve(),
-//         commonjs(),
-//         typescript({ tsconfig: './tsconfig.json' }),
-//         postcss(),
-//         terser()
-//     ]
-// }
