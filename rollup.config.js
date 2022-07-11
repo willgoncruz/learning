@@ -1,32 +1,30 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import typescript from '@rollup/plugin-typescript';
-import external from 'rollup-plugin-peer-deps-external';
-import serve from 'rollup-plugin-serve';
-import livereload from 'rollup-plugin-livereload';
-import replace from '@rollup/plugin-replace';
-
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import typescript from "@rollup/plugin-typescript";
+import external from "rollup-plugin-peer-deps-external";
+import serve from "rollup-plugin-serve";
+import livereload from "rollup-plugin-livereload";
+import replace from "@rollup/plugin-replace";
 
 export default {
-  input: 'src/index.tsx',
+  input: "src/index.tsx",
   output: {
-    file: 'dist/index.js',
-    format: 'cjs',
-    sourcemap: true
+    file: "dist/index.js",
+    format: "cjs",
+    sourcemap: true,
   },
   plugins: [
-      replace({
-        'process.env.NODE_ENV': JSON.stringify('development')
-      }),
-      external(),
-      resolve(),
-      commonjs(),
-      typescript({ tsconfig: './tsconfig.json' }),
-      serve(),
-      livereload(),
+    replace({
+      "process.env.NODE_ENV": JSON.stringify("development"),
+    }),
+    external(),
+    resolve(),
+    commonjs(),
+    typescript({ tsconfig: "./tsconfig.json" }),
+    serve(),
+    livereload(),
   ],
 };
-
 
 // import { terser } from 'rollup-plugin-terser';
 // import postcss from 'rollup-plugin-postcss';
