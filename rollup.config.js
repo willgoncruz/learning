@@ -1,44 +1,35 @@
 import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
+import commonjs from "rollup-plugin-commonjs-alternate";
 import typescript from "@rollup/plugin-typescript";
-import serve from "rollup-plugin-serve";
-import livereload from "rollup-plugin-livereload";
-import replace from "@rollup/plugin-replace";
+import hotcss from "rollup-plugin-hot-css";
 import postcss from "rollup-plugin-postcss";
-// import external from "rollup-plugin-auto-external";
-// import { terser } from 'rollup-plugin-terser';
 import babel from "rollup-plugin-babel";
+// import { terser } from 'rollup-plugin-terser';
 
 export default {
   input: "src/index.tsx",
   output: {
     file: "dist/index.js",
-    format: "cjs",
+    format: "esm",
     sourcemap: true,
   },
   plugins: [
-    replace({
-      preventAssignment: true,
-      "process.env.NODE_ENV": JSON.stringify("development"),
-    }),
-    resolve({
-      customResolveOptions: {
-        moduleDirectory: "node_modules",
-      },
+    // postcss(),
+    hotcss({
+      hot: process.env.NODE_ENV === "development",
+      file: "styles.css",
     }),
     babel({
-      exclude: "node_modules/**", // only transpile our source code,
+      exclude: "node_modules/**",
     }),
+    resolve(),
     commonjs({
-      transformMixedEsModules: true,
-      include: "node_modules/**",
-      exclude: "**/*.css",
+      define: {
+        "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      },
     }),
-    // external(),
-    postcss(),
     typescript({ tsconfig: "./tsconfig.json" }),
-    serve(),
-    livereload(),
+    // serve(),
+    // livereload(),
   ],
-  // external: ["react", "react-dom", "antd"],
 };
