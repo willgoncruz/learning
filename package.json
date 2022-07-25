@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://willgoncruz.github.io/dummy-project/",
+  "homepage": "https://willgoncruz.github.io/learning",
   "dependencies": {
     "@babel/core": "^7.18.6",
     "@types/react-dom": "^18.0.5",
@@ -19,7 +19,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "start:dev": "nollup -c -w",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "eslintConfig": {
     "extends": [
