@@ -3,6 +3,7 @@ import commonjs from "rollup-plugin-commonjs-alternate";
 import typescript from "@rollup/plugin-typescript";
 import postcss from "rollup-plugin-postcss";
 import babel from "rollup-plugin-babel";
+import json from "@rollup/plugin-json";
 // import { terser } from 'rollup-plugin-terser';
 
 export default {
@@ -23,6 +24,7 @@ export default {
         "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
       },
     }),
+    json(),
     typescript({ tsconfig: "./tsconfig.json" }),
     // serve(),
     // livereload(),
